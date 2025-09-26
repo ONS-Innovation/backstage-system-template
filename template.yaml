@@ -26,8 +26,6 @@ spec:
           type: string
           title: Description
           description: Description of the system
-          title: Catalog Owner
-          type: string
         owner:
           title: Owner
           type: string
