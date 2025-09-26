@@ -1,0 +1,67 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: system-template
+  title: Create New System
+  description: Scaffold a new System entity into a catalog
+spec:
+  owner: "group:default/spotify-backstage-trial-team"
+  type: service
+
+  parameters:
+    - title: System Information
+      required:
+        - name
+        - owner
+      properties:
+        name:
+          type: string
+          title: System Name
+          description: Unique name for the system (used as metadata.name)
+        title:
+          type: string
+          title: Display Title
+          description: System title
+        description:
+          type: string
+          title: Description
+          description: Description of the system
+        owner:
+          type: string
+          title: Owner
+          description: System Owner
+        organisation:
+          title: Organisation Name
+          type: string
+          enum:
+            - ONS-Innovation
+          description: What is the organisation name? (e.g. ONS-Innovation)
+          default: ONS-Innovation
+
+  steps:
+    - id: fetch
+      name: Fetch Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          title: ${{ parameters.title }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+
+    - id: publish
+      name: Publish to Repo
+      action: publish:github
+      input:
+        repoUrl: github.com?repo=systems/${{ parameters.name }}&owner={{ parameters.owner }}
+        defaultBranch: main
+        description: New System ${{ parameters.name }}
+        protectDefaultBranch: true
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: '/system.yaml'
