@@ -26,10 +26,19 @@ spec:
           type: string
           title: Description
           description: Description of the system
-        owner:
+          title: Catalog Owner
           type: string
+        owner:
           title: Owner
-          description: System Owner
+          type: string
+          description: Who owns your system? (user or group)
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              - kind: User
+                metadata.annotations.github.com/user-login: { exists: true }
+              - kind: Group
+                metadata.annotations.github.com/team-slug: { exists: true }
         organisation:
           title: Organisation Name
           type: string
