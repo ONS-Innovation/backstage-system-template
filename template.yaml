@@ -63,12 +63,12 @@ spec:
       input:
         repoUrl: github.com?repo=${{ parameters.name }}&owner=${{ parameters.organisation }}
         defaultBranch: main
-        description: New System ${{ parameters.name }}
+        description: ${{ parameters.name }}
         protectDefaultBranch: true
 
     - id: register
       name: Register in Catalog
       action: catalog:register
       input:
-        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
-        catalogInfoPath: '/system.yaml'
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '.catalog-info.yaml'
