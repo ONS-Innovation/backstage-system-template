@@ -51,6 +51,7 @@ spec:
       action: fetch:template
       input:
         url: ./system_template
+        templateFileExtension: true
         values:
           name: ${{ parameters.name }}
           title: ${{ parameters.title }}
