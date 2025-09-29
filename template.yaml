@@ -61,7 +61,7 @@ spec:
       name: Publish to Repo
       action: publish:github
       input:
-        repoUrl: github.com?repo=${{ parameters.name }}&owner=${{ parameters.owner }}
+        repoUrl: github.com?repo=${{ parameters.name }}&owner=${{ parameters.organisation }}
         defaultBranch: main
         description: ${{ parameters.name }}
         protectDefaultBranch: true
