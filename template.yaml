@@ -50,7 +50,7 @@ spec:
       name: Fetch Template
       action: fetch:template
       input:
-        url: ./skeleton
+        url: ./system_template
         values:
           name: ${{ parameters.name }}
           title: ${{ parameters.title }}
@@ -61,7 +61,7 @@ spec:
       name: Publish to Repo
       action: publish:github
       input:
-        repoUrl: github.com?repo=${{ parameters.name }}&owner=${{ parameters.organisation }}
+        repoUrl: github.com?repo=${{ parameters.name }}&owner=${{ parameters.owner }}
         defaultBranch: main
         description: ${{ parameters.name }}
         protectDefaultBranch: true
